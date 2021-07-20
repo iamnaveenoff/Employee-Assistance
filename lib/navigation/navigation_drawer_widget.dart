@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:office_assistance/main.dart';
 import 'package:office_assistance/pages/monthly_salary_calculator.dart';
@@ -60,7 +61,7 @@ Widget buildMenuItem({
 
   return ListTile(
     leading: Icon(icon, color: color),
-    title: Text(text, style: TextStyle(color: color)),
+    title: Text(text, style: TextStyle(color: color, fontSize: 19, fontWeight: FontWeight.bold)),
     hoverColor: hoverColor,
     onTap: onClicked,
   );

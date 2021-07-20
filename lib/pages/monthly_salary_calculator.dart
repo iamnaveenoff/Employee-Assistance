@@ -17,7 +17,6 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
   final annualSalaryController = TextEditingController();
   double monthlySalary = 0.0;
   bool isVisible = false;
-  bool _btnEnabled = false;
 
   @override
   void initState() {
@@ -46,7 +45,7 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
         appBar: AppBar(
           title: const Text(
             'Monthly Salary Calculator',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ),
         body: Padding(
@@ -76,6 +75,7 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: const InputDecoration(
                     labelText: 'Enter Annual Salary',
+                    // hintText: 'Please Enter Your Annual Salary',
                     prefixIcon: Icon(FontAwesomeIcons.rupeeSign),
                     border: OutlineInputBorder(),
                   ),
