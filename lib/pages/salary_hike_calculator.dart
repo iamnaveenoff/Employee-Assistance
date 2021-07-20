@@ -13,7 +13,7 @@ class _SalaryHikeCalculatorState extends State<SalaryHikeCalculator> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: NavigationDrawerWidget(),
+        drawer: const NavigationDrawerWidget(),
         appBar: AppBar(
           title: const Text(
             'Salary Hike Calculator',

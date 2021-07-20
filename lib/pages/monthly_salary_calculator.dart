@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../navigation/navigation_drawer_widget.dart';
@@ -15,6 +17,7 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
   final annualSalaryController = TextEditingController();
   double monthlySalary = 0.0;
   bool isVisible = false;
+  bool _btnEnabled = false;
 
   @override
   void initState() {
@@ -29,15 +32,17 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
   }
 
   monthlySalaryCalculate(salary) {
-    monthlySalary = int.parse(salary) / 12;
-    return monthlySalary;
+    if (salary.toString().isNotEmpty) {
+      monthlySalary = int.parse(salary) / 12;
+      return monthlySalary;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: NavigationDrawerWidget(),
+        drawer: const NavigationDrawerWidget(),
         appBar: AppBar(
           title: const Text(
             'Monthly Salary Calculator',
@@ -53,9 +58,22 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextField(
+                  onChanged: (value) => {
+                    monthlySalaryCalculate(annualSalaryController.text),
+                    setState(
+                      () {
+                        if (value.isNotEmpty) {
+                          isVisible = true;
+                        } else {
+                          isVisible = false;
+                        }
+                      },
+                    )
+                  },
                   controller: annualSalaryController,
                   autofocus: false,
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: const InputDecoration(
                     labelText: 'Enter Annual Salary',
                     prefixIcon: Icon(FontAwesomeIcons.rupeeSign),
@@ -67,20 +85,22 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
                     color: Colors.orange,
                   ),
                 ),
-                const SizedBox(height: 10),
-                ElevatedButton(
+                const SizedBox(height: 20),
+                /*ElevatedButton(
                   onPressed: () {
                     monthlySalaryCalculate(annualSalaryController.text);
-                    setState(() {
-                      if (annualSalaryController.text.isEmpty) {
-                        isVisible = false;
-                      } else {
-                        isVisible = true;
-                      }
-                    });
                   },
-                  child: const Text('Submit'),
-                ),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white),
+                  ),
+                ),*/
                 const SizedBox(height: 50),
                 Visibility(
                   visible: isVisible,
@@ -89,7 +109,8 @@ class _MonthlySalaryCalculatorState extends State<MonthlySalaryCalculator> {
                       color: Colors.greenAccent,
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    padding: const EdgeInsets.all(50),
+                    padding: const EdgeInsets.only(
+                        top: 80, bottom: 80, left: 30, right: 30),
                     child: Text(
                       'Your Monthly Salary is : ₹' +
                           monthlySalary.toStringAsFixed(0),

@@ -32,13 +32,13 @@ class NavigationDrawerWidget extends StatelessWidget {
                   buildMenuItem(
                     text: 'Monthly Salary Calculator',
                     icon: Icons.people,
-                    onClicked: () => selectedItem(context, 0),
+                    onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 16),
                   buildMenuItem(
                     text: 'Salary Hike Calculator',
                     icon: Icons.favorite_border,
-                    onClicked: () => selectedItem(context, 1),
+                    onClicked: () => selectedItem(context, 2),
                   ),
                 ],
               ),
